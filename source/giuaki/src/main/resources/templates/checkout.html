@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="" th:href="@{/css/checkout.css}">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+<title>Document</title>
+</head>
+<style>
+body {
+	width: 100%;
+	height: 100%;
+	font-family: montserrat;
+	background: rgb(255, 255, 255);
+	display: grid;
+	overflow: hidden;
+	/* border: 1px solid #000000; */
+}
+
+nav .main_nav .main_method ul .nav_bar {
+	/* background: rgb(133, 8, 8); */
+	margin: auto;
+	font-size: 20px;
+	/* border: 1px solid #000000; */
+	flex-direction: column;
+	margin-left: 10px;
+}
+
+nav .main_nav .main_method ul .nav_bar:hover {
+	background-color: rgb(225, 190, 190);
+	margin-bottom: 25px;
+	border-radius: 70%;
+}
+
+nav .main_nav .main_method ul span {
+	/* background: rgb(133, 8, 8); */
+	margin: auto;
+	font-size: 20px;
+	/* border: 1px solid #000000; */
+	flex-direction: column;
+	margin-left: -10px;
+	color: #ff0404;
+	font-size: 1.4rem;
+	font-weight: 500;
+}
+
+nav .main_nav .main_method ul .nav_bar a {
+	/*     border: 1px solid #000000; */
+	color: #000000;
+	font-size: 1.4rem;
+	font-weight: 500;
+}
+
+body .row .checkout a {
+	/*     border: 1px solid #000000; */
+	width: 100%;
+	border: 1px solid;
+	background: rgb(165, 118, 240);
+	border-radius: 20px;
+	font-size: 15px;
+	color: rgb(255, 255, 255);
+	font-weight: 700;
+	cursor: pointer;
+	outline: none;
+}
+
+body .row .checkout a:hover {
+	border-color: rgb(213, 143, 143);
+	transition: .5s;
+	background-color: rgba(151, 137, 126, 0.226);
+	color: rgb(233, 71, 71);
+}
+</style>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="main_nav container-fluid">
+			<a class="navbar-brand" href="#"> <img
+				th:src="@{/images/logo.jpg}" src="../static/images/logo.jpg"
+				width="auto" height="40" class="d-inline-block align-top" alt="" />
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="main_method collapse navbar-collapse"
+				id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto"></ul>
+				<ul class="navbar-nav">
+					<li class="nav_bar nav-item active"><a class="nav-link"
+						th:href="@{/}" href="#"><i class="bi bi-house-door"></i> Trang
+							chủ</a></li>
+					<li class="nav_bar nav-item active"><a class="nav-link"
+						th:href="@{/shop}" href="#"><i class="bi bi-shop"></i> Cửa
+							hàng</a></li>
+					<li class="nav_bar nav-item active"><a class="nav-link"
+						sec:authorize="isAnonymous()" th:href="@{/login}" href="#"><i
+							class="bi bi-box-arrow-in-left"></i> Đăng nhập</a></li>
+					<li class="nav_bar nav-item active"><a class="nav-link"
+						sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#"><i
+							class="bi bi-box-arrow-in-right"></i> Đăng xuất</a></li>
+					<li class="nav_bar nav-item active"><a class="nav-link"
+						th:href="@{/cart}" href="#"><i class="bi bi-cart"></i> Giỏ
+							hàng: </a></li>
+					<li class="nav-item active"><span class="nav-link"
+						th:text="${cartCount}">0</span></li>
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+
+		<!--Section: Block Content-->
+		<section class="mt-5 mb-4">
+
+			<!--Grid row-->
+			<div class="row">
+
+				<!--Grid column-->
+				<div class="col-lg-8 mb-4">
+
+					<!-- Card -->
+					<div class="card wish-list pb-1">
+						<div class="card-body">
+
+							<h5 class="mb-2">Chi tiết thanh toán</h5>
+
+							<!-- Grid row -->
+							<div class="row">
+
+								<!-- Grid column -->
+								<div class="col-lg-6">
+
+									<!-- First name -->
+									<div class="md-form md-outline mb-0 mb-lg-4">
+										<label for="firstName">Họ</label> <input type="text"
+											id="firstName" required class="form-control mb-0 mb-lg-2">
+									</div>
+
+								</div>
+								<!-- Grid column -->
+
+								<!-- Grid column -->
+								<div class="col-lg-6">
+
+									<!-- Last name -->
+									<div class="md-form md-outline">
+										<label for="lastName">Tên</label> <input type="text"
+											id="lastName" required class="form-control">
+									</div>
+
+								</div>
+								<!-- Grid column -->
+
+							</div>
+							<!-- Grid row -->
+
+							<!-- Address Part 1 -->
+							<div class="md-form md-outline mt-2">
+								<label for="form14">Địa chỉ</label><i> (số nhà/tên đường)</i> <input
+									type="text" required id="form14" placeholder=""
+									class="form-control">
+							</div>
+
+							<!-- Town / City -->
+							<div class="md-form md-outline mt-2">
+								<label for="form17">Tỉnh / Thành phố</label> <input type="text"
+									required id="form17" class="form-control">
+
+							</div>
+
+							<!-- Phone -->
+							<div class="md-form md-outline mt-2">
+								<label for="form18">Điện thoại</label> <input type="number"
+									minlength="10" maxlength="10" required id="form18"
+									class="form-control">
+							</div>
+
+							<!-- Email address -->
+							<div class="md-form md-outline mt-2">
+								<label for="form19">Địa chỉ email</label> <input type="email"
+									required id="form19" class="form-control">
+							</div>
+
+							<!-- Additional information -->
+							<div class="md-form md-outline mt-2">
+								<label for="form76">Thêm thông tin</label><i> (nếu có)</i>
+								<textarea id="form76" class="md-textarea form-control" rows="4"></textarea>
+							</div>
+
+
+						</div>
+					</div>
+					<!-- Card -->
+				</div>
+				<!--Grid column-->
+
+				<!--Grid column-->
+				<div class="col-lg-4">
+
+					<!-- Card -->
+					<div class="checkout card mb-4">
+						<div class="card-body">
+
+							<h3 class="mb-3">
+								Thanh toán
+								</h5>
+
+								<ul class="list-group list-group-flush">
+									<li
+										class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+										Số tiền: <span>$<span th:text="${total}"></span></span>
+									</li>
+									<li
+										class="list-group-item d-flex justify-content-between align-items-center px-0">
+										Phí vận chuyển: <span>Miễn phí</span>
+									</li>
+									<li
+										class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+										<div>
+											<strong>Tổng cộng: </strong> <strong>
+												<p class="mb-0">(Bao gồm thuế VAT)</p>
+											</strong>
+										</div> <span><strong>$<span th:text="${total}"></span></strong></span>
+									</li>
+								</ul>
+								<a th:href="@{/checkout}" h
+									class="btn btn-primary btn-block waves-effect waves-light">Thanh
+									toán</a>
+						</div>
+					</div>
+					<div class="card mb-4">
+						<div class="card-body">
+
+							<a class="dark-grey-text d-flex justify-content-between"
+								data-toggle="collapse" href="#collapseExample"
+								aria-expanded="false" aria-controls="collapseExample"> Mã
+								giảm giá <span><i class="fas fa-chevron-down pt-1"></i></span>
+							</a>
+
+							<div class="collapse" id="collapseExample">
+								<div class="mt-3">
+									<div class="md-form md-outline mb-0">
+										<input type="text" id="discount-code"
+											class="form-control font-weight-light"
+											placeholder="Nhập mã giảm giá">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Card -->
+				</div>
+				<!--Grid column-->
+
+			</div>
+			<!--Grid row-->
+
+		</section>
+		<!--Section: Block Content-->
+
+
+	</div>
+
+
+
+
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+</body>
+</html>
